@@ -1,5 +1,5 @@
-Summary:	Tool that cracks 802.11 WEP encryption keys.
-Summary(pl):	Program do ³amania szyfrowania WEP dla protoko³u 802.11.
+Summary:	Tool that cracks 802.11 WEP encryption keys
+Summary(pl):	Program do ³amania szyfrowania WEP dla protoko³u 802.11
 Name:		aircrack
 Version:	2.1
 Release:	1
@@ -17,7 +17,9 @@ have been gathered, aircrack can almost instantly recover the WEP key.
 
 %description -l pl
 Aircrack to program do ³amania szyfrowania WEP dla protoko³u 802.11
-u¿ywaj±cy ataku typu FMS.
+u¿ywaj±cy ataku typu FMS (Fluhrer - Mantin - Shamir). Po zgromadzeniu
+wystarczaj±cej liczby zaszyfrowanych pakietów aircrack mo¿e prawie
+natychmiast odtworzyæ klucz WEP.
 
 %prep
 %setup -q
