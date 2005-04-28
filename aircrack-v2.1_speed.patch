@@ -1,0 +1,151 @@
+*** aircrack.c	Thu Dec 16 17:07:09 2004
+--- aircrack.patched	Thu Dec 16 17:20:55 2004
+***************
+*** 49,54 ****
+--- 49,55 ----
+  "      -m <maddr> : MAC address to filter usable packets\n"
+  "      -n <nbits> : WEP key length: 64 / 128 / 256 / 512\n"
+  "      -p <nfork> : SMP support: # of processes to start\n"
++ "      -q <quiet> : Quiet mode (Less print more speed)\n"
+  "\n";
+  
+  /* command-line parameters */
+***************
+*** 56,61 ****
+--- 57,63 ----
+  int debug_lvl = 0;              /* # of keybytes fixed  */
+  int macfilter = 0;              /* BSSID check flag     */
+  int stability = 0;              /* unstable attacks on  */
++ int quietmode = 0;		/* quiet mode */
+  unsigned char debug[61];        /* user-defined wepkey  */
+  unsigned char maddr[6];         /* MAC address filter   */
+  int weplen = 13;                /* WEP key length       */
+***************
+*** 309,315 ****
+      et_h =   delta / 3600;
+      et_m = ( delta - et_h * 3600 ) / 60;
+      et_s =   delta - et_h * 3600 - et_m * 60;
+! 
+      printf( "\33[2;%dH\33[34;1maircrack 2.1\33[0m\n\n",
+              ( ws.ws_col - 12 ) / 2 ); 
+  
+--- 311,317 ----
+      et_h =   delta / 3600;
+      et_m = ( delta - et_h * 3600 ) / 60;
+      et_s =   delta - et_h * 3600 - et_m * 60;
+!     if (quietmode>=1) {
+      printf( "\33[2;%dH\33[34;1maircrack 2.1\33[0m\n\n",
+              ( ws.ws_col - 12 ) / 2 ); 
+  
+***************
+*** 319,332 ****
+      printf( "   * Elapsed time [%02d:%02d:%02d] | tried "
+              "%ld keys at %ld k/m\n", et_h, et_m, et_s, tried,
+              ( 60 * tried ) / delta );
+! 
+!     printf( "\n   KB    depth   votes\n" );
+  
+      for( i = 0; i <= B; i++ )
+      {
+          int j, k = ( ws.ws_col - 20 ) / 9;
+  
+!         printf( "   %2d  %3d/%3d   ",
+                  i, depth[i], fudge[i] );
+  
+          for( j = depth[i]; j < k + depth[i]; j++ )
+--- 321,334 ----
+      printf( "   * Elapsed time [%02d:%02d:%02d] | tried "
+              "%ld keys at %ld k/m\n", et_h, et_m, et_s, tried,
+              ( 60 * tried ) / delta );
+!     }
+!     if (quietmode>1) printf( "\n   KB    depth   votes\n" );
+  
+      for( i = 0; i <= B; i++ )
+      {
+          int j, k = ( ws.ws_col - 20 ) / 9;
+  
+!         if (quietmode>1) printf( "   %2d  %3d/%3d   ",
+                  i, depth[i], fudge[i] );
+  
+          for( j = depth[i]; j < k + depth[i]; j++ )
+***************
+*** 334,352 ****
+              if( j >= 256 ) break;
+  
+              if( wpoll[i][j].votes == INFINITY )
+!                 printf( "%02X(+inf) ", wpoll[i][j].index );
+              else
+!                 printf( "%02X(%4d) ",  wpoll[i][j].index,
+                                         wpoll[i][j].votes );
+          }
+  
+!         printf( "\n" );
+      }
+  
+      if( B < 11 )
+!         printf( "\33[J" );
+  
+!     printf( "\n" );
+  }
+  
+  /* safe I/O routines */
+--- 336,358 ----
+              if( j >= 256 ) break;
+  
+              if( wpoll[i][j].votes == INFINITY )
+! 	    {
+! 		    if (quietmode>2) printf( "%02X(+inf) ", wpoll[i][j].index );
+!             }
+              else
+! 	    {
+! 		    if (quietmode>2) printf( "%02X(%4d) ",  wpoll[i][j].index,
+                                         wpoll[i][j].votes );
++             }
+          }
+  
+!         if (quietmode>1) printf( "\n" );
+      }
+  
+      if( B < 11 )
+!         if (quietmode>1) printf( "\33[J" );
+  
+!     if (quietmode>1) printf( "\n" );
+  }
+  
+  /* safe I/O routines */
+***************
+*** 893,899 ****
+  
+      while( 1 )
+      {
+!         int option = getopt( argc, argv, "d:f:m:n:p:s:" );
+  
+          if( option < 0 ) break;
+  
+--- 899,905 ----
+  
+      while( 1 )
+      {
+!         int option = getopt( argc, argv, "d:f:k:n:m:p:s:q:" );
+  
+          if( option < 0 ) break;
+  
+***************
+*** 996,1001 ****
+--- 1002,1017 ----
+                      goto usage;
+  
+                  break;
++ 	
++             case 'q':
++ 	
++ 	        if( sscanf( optarg, "%d", &quietmode ) != 1 )
++ 	             goto usage;
++ 
++ 	        if( quietmode < 0 || quietmode > 3 )
++ 	             goto usage;
++ 
++ 	        break;
+  
+              default : goto usage;
+          }
