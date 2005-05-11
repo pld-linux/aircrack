@@ -40,7 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	prefix=%{_prefix} \
-        DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
