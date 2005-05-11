@@ -2,13 +2,14 @@ Summary:	Tool that cracks 802.11 WEP encryption keys
 Summary(pl):	Program do ³amania szyfrowania WEP dla protoko³u 802.11
 Name:		aircrack
 Version:	2.1
-Release:	3
+Release:	3.3
 License:	GPL
 Group:		Networking
 Source0:	http://www.cr0.net:8040/code/network/%{name}-%{version}.tgz
 # Source0-md5:	694c6180f620b0534e5925a71b960bd1
 Patch0:		%{name}-aireplay.patch
 Patch1:		%{name}-v2.1_speed.patch
+Patch2:		%{name}-2.1-amd64.patch
 URL:		http://www.cr0.net:8040/code/network/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -27,15 +28,18 @@ natychmiast odtworzyæ klucz WEP.
 %setup -q
 %patch0	-p1
 %patch1	-p0
+%patch2	-p0
 
 %build
-%{__make}
+%{__make} \
+	CFLAGS="-s %{rpmcflags}"
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	prefix=/usr \
+	prefix=%{_prefix} \
         DESTDIR=$RPM_BUILD_ROOT
 
 %clean
