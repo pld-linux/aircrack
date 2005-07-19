@@ -1,15 +1,13 @@
 Summary:	Tool that cracks 802.11 WEP encryption keys
 Summary(pl):	Program do ³amania szyfrowania WEP dla protoko³u 802.11
 Name:		aircrack
-Version:	2.1
-Release:	4
+%define	beta_ver	beta7
+Version:	2.2
+Release:	0.%{beta_ver}.1
 License:	GPL
 Group:		Networking
-Source0:	http://www.cr0.net:8040/code/network/%{name}-%{version}.tgz
-# Source0-md5:	694c6180f620b0534e5925a71b960bd1
-Patch0:		%{name}-aireplay.patch
-Patch1:		%{name}-v2.1_speed.patch
-Patch2:		%{name}-2.1-amd64.patch
+Source0:	http://www.cr0.net:8040/code/network/%{name}-%{version}-%{beta_ver}.tgz
+# Source0-md5:	97b72737f0c711db8c3a281ce0b59829
 URL:		http://www.cr0.net:8040/code/network/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -25,13 +23,11 @@ wystarczaj±cej liczby zaszyfrowanych pakietów aircrack mo¿e prawie
 natychmiast odtworzyæ klucz WEP.
 
 %prep
-%setup -q
-%patch0	-p1
-%patch1	-p0
-%patch2	-p0
+%setup -q -n %{name}-%{version}-%{beta_ver}
 
 %build
 %{__make} \
+	CC="%{__cc}" \
 	CFLAGS="-s %{rpmcflags}"
 
 
@@ -47,5 +43,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog README docs/* patch
+%doc ChangeLog README linux/patch
 %attr(755,root,root) %{_bindir}/*
