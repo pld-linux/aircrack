@@ -1,12 +1,12 @@
 Summary:	Tool that cracks 802.11 WEP encryption keys
 Summary(pl):	Program do ³amania szyfrowania WEP dla protoko³u 802.11
 Name:		aircrack
-Version:	2.22
+Version:	2.23
 Release:	1
 License:	GPL
 Group:		Networking
 Source0:	http://www.cr0.net:8040/code/network/%{name}-%{version}.tgz
-# Source0-md5:	fe605ecca951ce4b05bb288ebf5036b2
+# Source0-md5:	f2cae2e57ad21dd1c23592a79b6d6465
 URL:		http://www.cr0.net:8040/code/network/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
