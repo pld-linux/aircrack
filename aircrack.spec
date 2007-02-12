@@ -1,5 +1,5 @@
 Summary:	Tool that cracks 802.11 WEP encryption keys
-Summary(pl):	Program do ³amania szyfrowania WEP dla protoko³u 802.11
+Summary(pl.UTF-8):   Program do Å‚amania szyfrowania WEP dla protokoÅ‚u 802.11
 Name:		aircrack
 Version:	2.41
 Release:	1
@@ -15,11 +15,11 @@ Aircrack is a 802.11 WEP key cracker. It implements the so-called
 Fluhrer - Mantin - Shamir (FMS) attack, When enough encrypted packets
 have been gathered, aircrack can almost instantly recover the WEP key.
 
-%description -l pl
-Aircrack to program do ³amania szyfrowania WEP dla protoko³u 802.11
-u¿ywaj±cy ataku typu FMS (Fluhrer - Mantin - Shamir). Po zgromadzeniu
-wystarczaj±cej liczby zaszyfrowanych pakietów aircrack mo¿e prawie
-natychmiast odtworzyæ klucz WEP.
+%description -l pl.UTF-8
+Aircrack to program do Å‚amania szyfrowania WEP dla protokoÅ‚u 802.11
+uÅ¼ywajÄ…cy ataku typu FMS (Fluhrer - Mantin - Shamir). Po zgromadzeniu
+wystarczajÄ…cej liczby zaszyfrowanych pakietÃ³w aircrack moÅ¼e prawie
+natychmiast odtworzyÄ‡ klucz WEP.
 
 %prep
 %setup -q
