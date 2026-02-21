@@ -2,7 +2,7 @@ Summary:	Tool that cracks 802.11 WEP encryption keys
 Summary(pl.UTF-8):	Program do łamania szyfrowania WEP dla protokołu 802.11
 Name:		aircrack
 Version:	2.41
-Release:	3
+Release:	4
 License:	GPL
 Group:		Networking
 Source0:	http://www.cr0.net:8040/code/network/%{name}-%{version}.tgz
@@ -27,7 +27,7 @@ natychmiast odtworzyć klucz WEP.
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="-s %{rpmcflags}"
+	CFLAGS="%{rpmcflags}"
 
 
 %install
